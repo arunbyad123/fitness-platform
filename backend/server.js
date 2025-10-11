@@ -17,7 +17,7 @@ app.use(express.json());
 
 // CORS configuration
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173', // Frontend URL on Render
+  origin: 'https://fitness-platform-1.onrender.com/login', // Frontend URL on Render
   credentials: true,
 }));
 
