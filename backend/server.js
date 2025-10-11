@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.js';
 import dietRoutes from './routes/diet.js';
 import trainerRoutes from './routes/trainer.js';
 import adminRoutes from './routes/admin.js';
+import seedRoutes from './routes/seed.js';  // ← ADD THIS IMPORT
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/diet', dietRoutes);
 app.use('/api/trainers', trainerRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/seed', seedRoutes);  // ← Seed route
 
 // Health check
 app.get('/', (req, res) => {
