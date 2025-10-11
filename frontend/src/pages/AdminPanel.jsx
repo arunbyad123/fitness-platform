@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
+import API_URL from '../config/api';
 
 const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState('users');
@@ -22,7 +23,7 @@ const AdminPanel = () => {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/stats');
+      const res = await axios.get(`${API_URL}/api/admin/stats`);
       setStats(res.data);
     } catch (error) {
       console.error('Failed to fetch stats');
@@ -31,7 +32,7 @@ const AdminPanel = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/users');
+      const res = await axios.get(`${API_URL}/api/admin/users`);
       setUsers(res.data);
     } catch (error) {
       console.error('Failed to fetch users');
@@ -40,7 +41,7 @@ const AdminPanel = () => {
 
   const fetchDietPlans = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/diet');
+      const res = await axios.get(`${API_URL}/api/diet`);
       setDietPlans(res.data);
     } catch (error) {
       console.error('Failed to fetch diet plans');
@@ -49,7 +50,7 @@ const AdminPanel = () => {
 
   const fetchTrainers = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/trainers');
+      const res = await axios.get(`${API_URL}/api/trainers`);
       setTrainers(res.data);
     } catch (error) {
       console.error('Failed to fetch trainers');
@@ -59,7 +60,7 @@ const AdminPanel = () => {
   const handleDeleteUser = async (id) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/admin/users/${id}`);
+        await axios.delete(`${API_URL}/api/admin/users/${id}`);
         fetchUsers();
         fetchStats();
       } catch (error) {
@@ -71,7 +72,7 @@ const AdminPanel = () => {
   const handleDeleteDietPlan = async (id) => {
     if (window.confirm('Are you sure you want to delete this diet plan?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/admin/diet-plans/${id}`);
+        await axios.delete(`${API_URL}/api/admin/diet-plans/${id}`);
         fetchDietPlans();
         fetchStats();
       } catch (error) {
@@ -83,7 +84,7 @@ const AdminPanel = () => {
   const handleDeleteTrainer = async (id) => {
     if (window.confirm('Are you sure you want to delete this trainer?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/admin/trainers/${id}`);
+        await axios.delete(`${API_URL}/api/admin/trainers/${id}`);
         fetchTrainers();
         fetchStats();
       } catch (error) {
@@ -102,7 +103,7 @@ const AdminPanel = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/admin/diet-plans', {
+      await axios.post(`${API_URL}/api/admin/diet-plans`, {
         ...formData,
         meals: formData.meals ? JSON.parse(formData.meals) : []
       });
@@ -119,7 +120,7 @@ const AdminPanel = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/admin/trainers', {
+      await axios.post(`${API_URL}/api/admin/trainers`, {
         ...formData,
         certifications: formData.certifications ? formData.certifications.split(',').map(c => c.trim()) : []
       });

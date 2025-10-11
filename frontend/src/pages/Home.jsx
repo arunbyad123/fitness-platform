@@ -4,6 +4,7 @@ import axios from 'axios';
 import Navbar from '../components/Navbar';
 import TaskItem from '../components/TaskItem';
 import { AuthContext } from '../context/AuthContext';
+import API_URL from '../config/api';
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
@@ -18,7 +19,7 @@ const Home = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/diet/tasks');
+      const res = await axios.get(`${API_URL}/api/diet/tasks`);
       setTasks(res.data);
       calculateStats(res.data);
     } catch (error) {
@@ -37,7 +38,7 @@ const Home = () => {
   const handleCreateTask = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/diet/task', newTask);
+      await axios.post(`${API_URL}/api/diet/task`, newTask);
       setShowTaskModal(false);
       setNewTask({ title: '', description: '', category: 'diet', targetCalories: '' });
       fetchTasks();
@@ -48,7 +49,7 @@ const Home = () => {
 
   const handleCompleteTask = async (taskId) => {
     try {
-      await axios.patch(`http://localhost:5000/api/diet/task/${taskId}/complete`, { actualCalories: 0 });
+      await axios.patch(`${API_URL}/api/diet/task/${taskId}/complete`, { actualCalories: 0 });
       fetchTasks();
     } catch (error) {
       console.error('Failed to complete task');

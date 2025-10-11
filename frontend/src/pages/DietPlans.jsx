@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import DietCard from '../components/DietCard';
+import API_URL from '../config/api';
 
 const DietPlans = () => {
   const [dietPlans, setDietPlans] = useState([]);
@@ -16,7 +17,7 @@ const DietPlans = () => {
   const fetchDietPlans = async () => {
     
     try {
-      const res = await axios.get('http://localhost:5000/api/diet');
+      const res = await axios.get(`${API_URL}/api/diet`);
       setDietPlans(res.data);
     } catch (error) {
       console.error('Failed to fetch diet plans');

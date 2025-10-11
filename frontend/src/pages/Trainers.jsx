@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../components/Navbar';
 import TrainerCard from '../components/TrainerCard';
+import API_URL from '../config/api';
 
 const Trainers = () => {
   const [trainers, setTrainers] = useState([]);
@@ -15,7 +16,7 @@ const Trainers = () => {
 
   const fetchTrainers = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/trainers');
+      const res = await axios.get(`${API_URL}/api/trainers`);
       setTrainers(res.data);
     } catch (error) {
       console.error('Failed to fetch trainers');
@@ -113,7 +114,7 @@ const Trainers = () => {
   const handleContact = async (trainer) => {
     try {
       // Try to contact via API
-      const response = await axios.post(`http://localhost:5000/api/trainers/${trainer._id}/contact`);
+      const response = await axios.post(`${API_URL}/api/trainers/${trainer._id}/contact`);
       setMessage(`✅ Contact request sent to ${trainer.name}! They will reach out to you at your registered email.`);
       setMessageType('success');
       

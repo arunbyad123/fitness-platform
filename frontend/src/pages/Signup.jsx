@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../config/api';
 
 const Signup = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
@@ -15,7 +16,7 @@ const Signup = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/signup', formData);
+      const res = await axios.post(`${API_URL}/api/auth/signup`, formData);
       setUserId(res.data.userId);
       setMessage(`✅ OTP sent! (Check console: ${res.data.otp})`);
       setStep(2);
@@ -29,7 +30,7 @@ const Signup = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/api/auth/verify-otp', { userId, otp });
+      await axios.post(`${API_URL}/api/auth/verify-otp`, { userId, otp });
       setMessage('✅ Email verified! Redirecting to login...');
       setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
